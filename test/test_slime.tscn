@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cwkeecx54xau0"]
+
+[ext_resource type="PackedScene" uid="uid://cs562ktua8so5" path="res://scenes/player/player.tscn" id="1_fx5uc"]
+[ext_resource type="Texture2D" uid="uid://de2gmtndr2r7b" path="res://asset/green_tree_background/1 Tiles/Tile_02.png" id="2_bpn6e"]
+[ext_resource type="Texture2D" uid="uid://xyp57up1jqex" path="res://asset/green_tree_background/1 Tiles/Tile_13.png" id="3_y5gml"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bpn6e"]
+size = Vector2(474, 28.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5gml"]
+size = Vector2(33.5, 284)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mrm8t"]
+size = Vector2(213.25, 15.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3m0l"]
+size = Vector2(430, 22)
+
+[node name="TestSlime" type="Node2D" unique_id=375779553]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=90041729]
+position = Vector2(-1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1399550383]
+position = Vector2(262, 278)
+shape = SubResource("RectangleShape2D_bpn6e")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=868992186]
+position = Vector2(41, 150)
+shape = SubResource("RectangleShape2D_y5gml")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=671765864]
+position = Vector2(161, 149)
+shape = SubResource("RectangleShape2D_mrm8t")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=1799669478]
+position = Vector2(243, -3)
+shape = SubResource("RectangleShape2D_g3m0l")
+
+[node name="Player" parent="." unique_id=192483330 instance=ExtResource("1_fx5uc")]
+position = Vector2(183, 20)
+floor_snap_length = 4.0
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1258727530]
+position = Vector2(263.00003, 279)
+scale = Vector2(14.861328, -0.86230624)
+texture = ExtResource("2_bpn6e")
+
+[node name="Sprite2D5" type="Sprite2D" parent="." unique_id=1677342879]
+position = Vector2(-54, 233)
+scale = Vector2(1.0390627, 8.921875)
+texture = ExtResource("3_y5gml")
+
+[node name="CeilingSprite" type="Sprite2D" parent="." unique_id=1100449039]
+position = Vector2(160.99994, 149)
+scale = Vector2(6.695313, -0.50585985)
+texture = ExtResource("2_bpn6e")
+
+[node name="Sprite2D7" type="Sprite2D" parent="." unique_id=145802940]
+position = Vector2(387, -67.99999)
+scale = Vector2(13.430662, -0.6499021)
+texture = ExtResource("2_bpn6e")
