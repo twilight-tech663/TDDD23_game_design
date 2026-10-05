@@ -4,24 +4,111 @@ extends CharacterBody2D
 const SPEED := 100.0
 const SURFACE_SPEED := 100.0
 const DETACH_LOCK_TIME := 0.5
+const GREEN_SLIME_GROWTH := 1.2
+const DAMAGE_SHRINK := 0.2
+const MIN_SIZE_MULTIPLIER := 0.2
+const MAX_DAMAGE_COUNT := 2
+const DEAD_STATE := 3
+const RED_SLIME_SCENE := preload("res://scenes/other_slimes&enemy/red_slime/red_slime.tscn")
+const WHITE_SLIME_SCENE := preload("res://scenes/other_slimes&enemy/white_slime/white_slime.tscn")
+
+signal size_changed(size_multiplier: float)
 
 var is_adhere := false
 var surface_normal := Vector2.UP
 var current_surface_collider: CollisionObject2D = null
 var adhesion_lock_time := 0.0
+var size_multiplier := 1.0
+var damage_count := 0
+var is_dead := false
+var current_slime_type := slime_type.GREEN
+var green_frames: SpriteFrames
+var red_frames: SpriteFrames
+var white_frames: SpriteFrames
+
+enum slime_type{
+	GREEN,
+	RED,
+	WHITE
+}
 
 func _ready() -> void:
 	up_direction = Vector2.UP
+	green_frames = $AnimatedSprite2D.sprite_frames
+	var red_slime := RED_SLIME_SCENE.instantiate()
+	red_frames = red_slime.get_node("AnimatedSprite2D").sprite_frames
+	red_slime.free()
+	var white_slime := WHITE_SLIME_SCENE.instantiate()
+	white_frames = white_slime.get_node("AnimatedSprite2D").sprite_frames
+	white_slime.free()
+
 	var raycasts: Array[RayCast2D] = get_adhesion_raycasts()
 
 	for raycast in raycasts:
 		raycast.add_exception(self)
+		
+	$EatArea2D.body_entered.connect(_on_eat_area_body_entered)
+
+func _on_eat_area_body_entered(body: Node2D) -> void:
+	if body.has_method("is_green_slime") and body.is_green_slime():
+		if current_slime_type != slime_type.GREEN:
+			change_slime_type(slime_type.GREEN)
+		else:
+			grow_from_green_slime()
+		body.consume()
+		return
+
+	if body.has_method("is_red_slime") and body.is_red_slime():
+		change_slime_type(slime_type.RED)
+		body.consume()
+		return
+
+	if body is Coblin:
+		if current_slime_type == slime_type.RED:
+			body.take_damage(1)
+		elif current_slime_type == slime_type.WHITE:
+			body.freeze()
+		return
+
+	if body.has_method("is_white_slime") and body.is_white_slime():
+		change_slime_type(slime_type.WHITE)
+		body.consume()
+		return
+
+func take_damage(_amount: int = 1) -> void:
+	if is_dead:
+		return
+
+	damage_count += 1
+	size_multiplier = max(size_multiplier - DAMAGE_SHRINK, MIN_SIZE_MULTIPLIER)
+	scale = Vector2.ONE * size_multiplier
+	size_changed.emit(size_multiplier)
+	if damage_count >= MAX_DAMAGE_COUNT:
+		$FSM.change_state(DEAD_STATE)
+
+func grow_from_green_slime() -> void:
+	size_multiplier *= GREEN_SLIME_GROWTH
+	scale = Vector2.ONE * size_multiplier
+	size_changed.emit(size_multiplier)
+
+func change_slime_type(new_type: int) -> void:
+	current_slime_type = new_type
+	match new_type:
+		slime_type.RED:
+			$AnimatedSprite2D.sprite_frames = red_frames
+		slime_type.WHITE:
+			$AnimatedSprite2D.sprite_frames = white_frames
+		_:
+			$AnimatedSprite2D.sprite_frames = green_frames
+	$AnimatedSprite2D.play()
 
 func _physics_process(delta: float) -> void:
 	update_adhesion_lock(delta)
 
+	#if is_adhere and !_can_adhere_to(current_surface_collider):
+		#detach_from_surface()
 	if !is_adhere:
-		find_adhesion_surface()
+		find_adhesion_surface() 
 
 func get_adhesion_raycasts() -> Array[RayCast2D]:
 	return [$AdhesionUp, $AdhesionDown, $AdhesionLeft, $AdhesionRight]
@@ -48,6 +135,9 @@ func find_adhesion_surface() -> bool:
 			attach_to_surface(collision_normal, collision.get_position(), collider)
 			return true
 	return false
+
+func _can_adhere_to(collider: CollisionObject2D) -> bool:
+	return collider != null and not collider is Coblin
 
 func attach_to_surface(
 	normal: Vector2,

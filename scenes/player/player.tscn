@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://4ttofuidkbvh" path="res://scenes/player/state/idle_state.gd" id="7_5gtgg"]
 [ext_resource type="Script" uid="uid://dqej4lb7kedae" path="res://scenes/player/state/move_state.gd" id="8_h17s1"]
 [ext_resource type="Script" uid="uid://ugjjdi7owp8c" path="res://scenes/player/state/drop_state.gd" id="9_je7p5"]
+[ext_resource type="Script" uid="uid://uawe2iklxh2l" path="res://scenes/player/state/dead_state.gd" id="11_je7p5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h17s1"]
 atlas = ExtResource("2_p47bc")
@@ -75,10 +76,6 @@ region = Rect2(798, 95, 64, 32)
 atlas = ExtResource("3_75vfm")
 region = Rect2(926, 95, 64, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6cv16"]
-atlas = ExtResource("4_0owmy")
-region = Rect2(30, 95, 64, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_j4nxn"]
 atlas = ExtResource("4_0owmy")
 region = Rect2(158, 95, 64, 32)
@@ -106,6 +103,10 @@ region = Rect2(798, 95, 64, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5mf0n"]
 atlas = ExtResource("4_0owmy")
 region = Rect2(926, 95, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cv16"]
+atlas = ExtResource("4_0owmy")
+region = Rect2(30, 95, 64, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4hvnv"]
 atlas = ExtResource("5_qek5x")
@@ -202,9 +203,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6cv16")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_j4nxn")
 }, {
 "duration": 1.0,
@@ -224,6 +222,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5mf0n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6cv16")
 }],
 "loop": 1,
 "name": &"move",
@@ -283,14 +284,16 @@ _data = {
 &"move": SubResource("Animation_0owmy")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cjnhx"]
+radius = 11.401754
+
 [node name="Player" type="CharacterBody2D" unique_id=269103162]
 script = ExtResource("1_8afob")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=147714988]
-position = Vector2(-0.00651367, -0.083251536)
 scale = Vector2(0.4366005, 0.4780659)
 sprite_frames = SubResource("SpriteFrames_cjnhx")
-animation = &"run"
+animation = &"dead"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=362201813]
 shape = SubResource("CapsuleShape2D_f4bya")
@@ -323,5 +326,13 @@ script = ExtResource("8_h17s1")
 [node name="drop" type="Node" parent="FSM" unique_id=515385018]
 script = ExtResource("9_je7p5")
 
+[node name="dead" type="Node" parent="FSM" unique_id=940005738]
+script = ExtResource("11_je7p5")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=353069564]
 libraries/ = SubResource("AnimationLibrary_qek5x")
+
+[node name="EatArea2D" type="Area2D" parent="." unique_id=1322880046]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EatArea2D" unique_id=1068453112]
+shape = SubResource("CircleShape2D_cjnhx")

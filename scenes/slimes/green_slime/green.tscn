@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://cjorfyyaimxp0"]
+
+[ext_resource type="Script" uid="uid://4hir2he83ej2" path="res://scenes/slimes/green_slime/green.gd" id="1_7k2nd"]
+[ext_resource type="Texture2D" uid="uid://co2o3n8swgw0q" path="res://asset/craftpix-net-788364-free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime1/Parts/Slime1_Idle_body.png" id="2_5ne78"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjnhx"]
+size = Vector2(18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0ss0"]
+atlas = ExtResource("2_5ne78")
+region = Rect2(20, 83, 22, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi6ri"]
+atlas = ExtResource("2_5ne78")
+region = Rect2(86, 83, 22, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xv2qo"]
+atlas = ExtResource("2_5ne78")
+region = Rect2(148, 83, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7s8v"]
+atlas = ExtResource("2_5ne78")
+region = Rect2(212, 83, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ju2bh"]
+atlas = ExtResource("2_5ne78")
+region = Rect2(277, 83, 23, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f4bya"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0ss0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wi6ri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xv2qo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7s8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ju2bh")
+}],
+"loop": 1,
+"name": &"alive",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_trsxo"]
+resource_name = "idle"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"alive", 0.0, true],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vc64s"]
+_data = {
+&"alive": SubResource("Animation_trsxo")
+}
+
+[node name="BlueSlime" type="CharacterBody2D" unique_id=811185381]
+script = ExtResource("1_7k2nd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=796160913]
+shape = SubResource("RectangleShape2D_cjnhx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2091121537]
+scale = Vector2(0.8636364, 0.9285714)
+sprite_frames = SubResource("SpriteFrames_f4bya")
+animation = &"alive"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1769720337]
+libraries/ = SubResource("AnimationLibrary_vc64s")
