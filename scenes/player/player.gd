@@ -9,14 +9,15 @@ const DAMAGE_SHRINK := 0.2
 const MIN_SIZE_MULTIPLIER := 0.2
 const MAX_DAMAGE_COUNT := 2
 const DEAD_STATE := 3
-const RED_SLIME_SCENE := preload("res://scenes/other_slimes&enemy/red_slime/red_slime.tscn")
-const WHITE_SLIME_SCENE := preload("res://scenes/other_slimes&enemy/white_slime/white_slime.tscn")
+const RED_SLIME_SCENE := preload("res://scenes/slimes/red_slime/red_slime.tscn")
+const WHITE_SLIME_SCENE := preload("res://scenes/slimes/white_slime/white_slime.tscn")
 
 signal size_changed(size_multiplier: float)
+signal death
 
 var is_adhere := false
 var surface_normal := Vector2.UP
-var current_surface_collider: CollisionObject2D = null
+var current_surface_collider: Node = null
 var adhesion_lock_time := 0.0
 var size_multiplier := 1.0
 var damage_count := 0
@@ -101,6 +102,8 @@ func change_slime_type(new_type: int) -> void:
 		_:
 			$AnimatedSprite2D.sprite_frames = green_frames
 	$AnimatedSprite2D.play()
+	if current_surface_collider != null and !_can_pass_surface(current_surface_collider):
+		$FSM.change_state(DEAD_STATE)
 
 func _physics_process(delta: float) -> void:
 	update_adhesion_lock(delta)
@@ -129,21 +132,38 @@ func find_adhesion_surface() -> bool:
 		for collision_index in get_slide_collision_count():
 			var collision := get_slide_collision(collision_index)
 			var collision_normal := collision.get_normal().normalized()
-			var collider := collision.get_collider() as CollisionObject2D
+			var collider := collision.get_collider() as Node
+			if !_can_adhere_to(collider):
+				continue
 			if is_adhere and collider == current_surface_collider and collision_normal.dot(surface_normal) > 0.9:
 				continue
 			attach_to_surface(collision_normal, collision.get_position(), collider)
 			return true
 	return false
 
-func _can_adhere_to(collider: CollisionObject2D) -> bool:
-	return collider != null and not collider is Coblin
+
+func _can_adhere_to(collider: Node) -> bool:
+	return (
+		collider != null
+		and not collider is Coblin
+		and not collider.has_method("is_fire_surface")
+		and not collider.has_method("is_ice_surface")
+		and not collider.has_method("is_green_slime")
+		and not collider.has_method("is_red_slime")
+		and not collider.has_method("is_white_slime")
+	)
 
 func attach_to_surface(
 	normal: Vector2,
 	contact_position: Vector2 = Vector2.INF,
-	collider: CollisionObject2D = null
+	collider: Node = null
 ) -> void:
+	if !_can_adhere_to(collider):
+		return
+	if !_can_pass_surface(collider):
+		$FSM.change_state(DEAD_STATE)
+		return
+
 	var normalized_normal := normal.normalized()
 	var is_same_surface := is_adhere and collider == current_surface_collider and normalized_normal.dot(surface_normal) > 0.9
 	
@@ -158,6 +178,15 @@ func attach_to_surface(
 		if contact_position != Vector2.INF:
 			global_position = contact_position + surface_normal * _surface_offset(surface_normal)
 	$AnimatedSprite2D.rotation = surface_normal.angle() + PI / 2.0
+
+func _can_pass_surface(collider: Node) -> bool:
+	if collider == null:
+		return true
+	if collider.has_method("is_fire_surface"):
+		return current_slime_type == slime_type.RED
+	if collider.has_method("is_ice_surface"):
+		return current_slime_type == slime_type.WHITE
+	return true
 
 func _surface_offset(normal: Vector2) -> float:
 	var shape := $CollisionShape2D.shape as Shape2D

@@ -268,7 +268,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjnhx"]
-size = Vector2(46, 31)
+size = Vector2(17, 15)
 
 [node name="RedSlime" type="CharacterBody2D" unique_id=1907653298]
 script = ExtResource("1_thl7d")
@@ -281,5 +281,5 @@ animation = &"alive"
 libraries/ = SubResource("AnimationLibrary_hnihb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2021388644]
-position = Vector2(0, 0.5)
+position = Vector2(1.5, 4.5)
 shape = SubResource("RectangleShape2D_cjnhx")

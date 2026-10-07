@@ -3,6 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://cs562ktua8so5" path="res://scenes/player/player.tscn" id="1_fx5uc"]
 [ext_resource type="Texture2D" uid="uid://de2gmtndr2r7b" path="res://asset/green_tree_background/1 Tiles/Tile_02.png" id="2_bpn6e"]
 [ext_resource type="Texture2D" uid="uid://xyp57up1jqex" path="res://asset/green_tree_background/1 Tiles/Tile_13.png" id="3_y5gml"]
+[ext_resource type="PackedScene" uid="uid://cjorfyyaimxp0" path="res://scenes/slimes/green_slime/green.tscn" id="4_y5gml"]
+[ext_resource type="PackedScene" uid="uid://k2d4eg2jsjen" path="res://scenes/enemy/goblin/goblin.tscn" id="5_mrm8t"]
+[ext_resource type="PackedScene" uid="uid://xvdc1f26t3ur" path="res://scenes/slimes/red_slime/red_slime.tscn" id="6_g3m0l"]
+[ext_resource type="PackedScene" uid="uid://drhnoblle60ri" path="res://scenes/slimes/white_slime/white_slime.tscn" id="7_6lbq1"]
+[ext_resource type="PackedScene" uid="uid://di12g1j6h3p5v" path="res://scenes/surfaces/fire_surface.tscn" id="8_o6ise"]
+[ext_resource type="PackedScene" uid="uid://b3ermmpc4sr6e" path="res://scenes/surfaces/ice_surface.tscn" id="9_aho80"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpn6e"]
 size = Vector2(474, 28.5)
@@ -16,13 +22,16 @@ size = Vector2(213.25, 15.75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g3m0l"]
 size = Vector2(430, 22)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f4bya"]
+size = Vector2(184, 23)
+
 [node name="TestSlime" type="Node2D" unique_id=375779553]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=90041729]
 position = Vector2(-1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1399550383]
-position = Vector2(262, 278)
+position = Vector2(262, 279)
 shape = SubResource("RectangleShape2D_bpn6e")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=868992186]
@@ -37,8 +46,12 @@ shape = SubResource("RectangleShape2D_mrm8t")
 position = Vector2(243, -3)
 shape = SubResource("RectangleShape2D_g3m0l")
 
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" unique_id=414624028]
+position = Vector2(374, 212)
+shape = SubResource("RectangleShape2D_f4bya")
+
 [node name="Player" parent="." unique_id=192483330 instance=ExtResource("1_fx5uc")]
-position = Vector2(183, 20)
+position = Vector2(156, 54)
 floor_snap_length = 4.0
 
 [node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1258727530]
@@ -47,7 +60,7 @@ scale = Vector2(14.861328, -0.86230624)
 texture = ExtResource("2_bpn6e")
 
 [node name="Sprite2D5" type="Sprite2D" parent="." unique_id=1677342879]
-position = Vector2(-54, 233)
+position = Vector2(39, 151)
 scale = Vector2(1.0390627, 8.921875)
 texture = ExtResource("3_y5gml")
 
@@ -57,6 +70,24 @@ scale = Vector2(6.695313, -0.50585985)
 texture = ExtResource("2_bpn6e")
 
 [node name="Sprite2D7" type="Sprite2D" parent="." unique_id=145802940]
-position = Vector2(387, -67.99999)
+position = Vector2(244.00002, -2.0000153)
 scale = Vector2(13.430662, -0.6499021)
 texture = ExtResource("2_bpn6e")
+
+[node name="GreenSlime" parent="." unique_id=811185381 instance=ExtResource("4_y5gml")]
+position = Vector2(67, 65)
+
+[node name="Coblin" parent="." unique_id=162470542 instance=ExtResource("5_mrm8t")]
+position = Vector2(379, 188)
+
+[node name="RedSlime" parent="." unique_id=1907653298 instance=ExtResource("6_g3m0l")]
+position = Vector2(142, 130)
+
+[node name="WhiteSlime" parent="." unique_id=263978910 instance=ExtResource("7_6lbq1")]
+position = Vector2(223, 132)
+
+[node name="FireSurface" parent="." unique_id=975436669 instance=ExtResource("8_o6ise")]
+position = Vector2(110, 146)
+
+[node name="IceSurface" parent="." unique_id=1499499191 instance=ExtResource("9_aho80")]
+position = Vector2(254, 147)

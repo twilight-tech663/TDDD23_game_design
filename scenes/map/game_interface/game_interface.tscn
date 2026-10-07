@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://cq8bokecs3qe2"]
+
+[ext_resource type="Texture2D" uid="uid://b0dko3rioxtc" path="res://asset/green_tree_background/2 Background/Layers/4.png" id="1_gdgul"]
+[ext_resource type="Script" uid="uid://huals03icxmr" path="res://scenes/map/game_interface/game_interface.gd" id="2_cs1ld"]
+[ext_resource type="Texture2D" uid="uid://bgmw7k05cp5pv" path="res://asset/green_tree_background/2 Background/Layers/1.png" id="2_pe2v2"]
+[ext_resource type="Texture2D" uid="uid://pa1l2fmajttx" path="res://asset/green_tree_background/2 Background/Layers/3.png" id="3_cs1ld"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cjnhx"]
+
+[node name="Game_Interface" type="TextureRect" unique_id=1583754813]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_gdgul")
+script = ExtResource("2_cs1ld")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=464833860]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0090001
+anchor_bottom = 1.0200001
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -6.76001
+offset_bottom = -6.180023
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=650547161]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=704504543]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "SlimeBound"
+label_settings = SubResource("LabelSettings_cjnhx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="start" type="Button" parent="CenterContainer/VBoxContainer" unique_id=318195845]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.15294118, 0.69411767, 0.9490196, 1)
+text = "Start"
+expand_icon = true
+
+[node name="exit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1706124155]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.15312374, 0.695907, 0.9499323, 1)
+text = "Exit"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1693962757]
+z_index = -1
+position = Vector2(320, 179.49998)
+scale = Vector2(1.1111112, 1.1141975)
+texture = ExtResource("2_pe2v2")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1540460302]
+z_index = -1
+position = Vector2(319.99997, 179.49998)
+scale = Vector2(1.1076388, 1.1203704)
+texture = ExtResource("3_cs1ld")
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/exit" to="." method="on_exit_pressed"]

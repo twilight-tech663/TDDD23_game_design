@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://b3ermmpc4sr6e"]
+
+[ext_resource type="Script" uid="uid://v1b16kww8qbq" path="res://scenes/surfaces/ice_surface.gd" id="1_ice"]
+[ext_resource type="Texture2D" uid="uid://c36vq34kd2qum" path="res://asset/surfaces.png" id="2_8ilws"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ice"]
+size = Vector2(8, 14)
+
+[sub_resource type="Animation" id="Animation_1y4v0"]
+resource_name = "ice"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"ice", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ilws"]
+_data = {
+&"ice": SubResource("Animation_1y4v0")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16hal"]
+atlas = ExtResource("2_8ilws")
+region = Rect2(0, 62, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5whvl"]
+atlas = ExtResource("2_8ilws")
+region = Rect2(31, 62, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yh6sy"]
+atlas = ExtResource("2_8ilws")
+region = Rect2(62, 62, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqg6v"]
+atlas = ExtResource("2_8ilws")
+region = Rect2(93, 62, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slcjk"]
+atlas = ExtResource("2_8ilws")
+region = Rect2(124, 62, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3p8o"]
+atlas = ExtResource("2_8ilws")
+region = Rect2(155, 62, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbu6e"]
+atlas = ExtResource("2_8ilws")
+region = Rect2(186, 62, 31, 31)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cjnhx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16hal")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5whvl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yh6sy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqg6v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slcjk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3p8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbu6e")
+}],
+"loop": 1,
+"name": &"ice",
+"speed": 5.0
+}]
+
+[node name="IceSurface" type="StaticBody2D" unique_id=1499499191]
+script = ExtResource("1_ice")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1094976003]
+light_mask = 3
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ice")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=541978765]
+libraries/ = SubResource("AnimationLibrary_8ilws")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=199239464]
+position = Vector2(0, -4.7683716e-07)
+scale = Vector2(0.5887097, 0.5483873)
+sprite_frames = SubResource("SpriteFrames_cjnhx")
+animation = &"ice"

@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://di12g1j6h3p5v"]
+
+[ext_resource type="Texture2D" uid="uid://c36vq34kd2qum" path="res://asset/surfaces.png" id="1_a37kt"]
+[ext_resource type="Script" uid="uid://di55aduhk3c6d" path="res://scenes/surfaces/fire_surface.gd" id="2_fire"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjnhx"]
+size = Vector2(9, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0swrw"]
+atlas = ExtResource("1_a37kt")
+region = Rect2(0, 0, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27gwx"]
+atlas = ExtResource("1_a37kt")
+region = Rect2(31, 0, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tjaf"]
+atlas = ExtResource("1_a37kt")
+region = Rect2(62, 0, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71gp7"]
+atlas = ExtResource("1_a37kt")
+region = Rect2(93, 0, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4g4op"]
+atlas = ExtResource("1_a37kt")
+region = Rect2(124, 0, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftc26"]
+atlas = ExtResource("1_a37kt")
+region = Rect2(155, 0, 31, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjrcx"]
+atlas = ExtResource("1_a37kt")
+region = Rect2(186, 0, 31, 31)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cjnhx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0swrw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27gwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tjaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71gp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4g4op")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ftc26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjrcx")
+}],
+"loop": 1,
+"name": &"fire",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_awseq"]
+resource_name = "fire"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"fire", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m40wo"]
+_data = {
+&"fire": SubResource("Animation_awseq")
+}
+
+[node name="FireSurface" type="StaticBody2D" unique_id=975436669]
+script = ExtResource("2_fire")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=845606216]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_cjnhx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=896337719]
+position = Vector2(2.3841858e-07, 0)
+scale = Vector2(0.5504032, 0.53427416)
+sprite_frames = SubResource("SpriteFrames_cjnhx")
+animation = &"fire"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1832655881]
+libraries/ = SubResource("AnimationLibrary_m40wo")

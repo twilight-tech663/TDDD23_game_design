@@ -268,13 +268,13 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjnhx"]
-size = Vector2(27, 28)
+size = Vector2(18, 17)
 
 [node name="WhiteSlime" type="CharacterBody2D" unique_id=263978910]
 script = ExtResource("1_mogyp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1107901591]
-scale = Vector2(1.1428571, 1.0833334)
+scale = Vector2(0.8571428, 0.8333334)
 sprite_frames = SubResource("SpriteFrames_cjnhx")
 animation = &"alive"
 
@@ -282,4 +282,5 @@ animation = &"alive"
 libraries/ = SubResource("AnimationLibrary_d58ln")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2061012357]
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_cjnhx")

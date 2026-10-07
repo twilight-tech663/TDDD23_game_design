@@ -10,6 +10,8 @@ func enter() -> void:
 	player.get_node("CollisionShape2D").set_deferred("disabled", true)
 	player.get_node("EatArea2D/CollisionShape2D").set_deferred("disabled", true)
 	animated_sprite.play("dead")
+	await get_tree().create_timer(5)
+	player.emit_signal("death")
 	
 func do(_delta: float) -> void:
 	pass
