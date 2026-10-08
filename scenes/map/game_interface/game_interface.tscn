@@ -49,6 +49,11 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.15312374, 0.695907, 0.9499323, 1)
 text = "Exit"
 
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer" unique_id=520285555]
+layout_mode = 2
+text = "Drop: Space
+Move: <- -> / A D"
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1693962757]
 z_index = -1
 position = Vector2(320, 179.49998)

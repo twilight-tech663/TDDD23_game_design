@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://di55aduhk3c6d" path="res://scenes/surfaces/fire_surface.gd" id="2_fire"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjnhx"]
-size = Vector2(9, 13)
+size = Vector2(11, 14)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0swrw"]
 atlas = ExtResource("1_a37kt")
@@ -89,12 +89,12 @@ _data = {
 script = ExtResource("2_fire")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=845606216]
-position = Vector2(0.5, 0.5)
+position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_cjnhx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=896337719]
-position = Vector2(2.3841858e-07, 0)
-scale = Vector2(0.5504032, 0.53427416)
+position = Vector2(0.23437573, 0.35937512)
+scale = Vector2(0.5655242, 0.55745965)
 sprite_frames = SubResource("SpriteFrames_cjnhx")
 animation = &"fire"
 

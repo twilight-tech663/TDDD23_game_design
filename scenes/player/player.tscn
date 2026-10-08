@@ -300,19 +300,19 @@ shape = SubResource("CapsuleShape2D_f4bya")
 
 [node name="AdhesionUp" type="RayCast2D" parent="." unique_id=561116483]
 position = Vector2(0, -8)
-target_position = Vector2(0, -40)
+target_position = Vector2(0, -30)
 
 [node name="AdhesionDown" type="RayCast2D" parent="." unique_id=231083490]
 position = Vector2(0, 8)
-target_position = Vector2(0, 40)
+target_position = Vector2(0, 30)
 
 [node name="AdhesionLeft" type="RayCast2D" parent="." unique_id=1847792801]
 position = Vector2(-6, 0)
-target_position = Vector2(-45, 0)
+target_position = Vector2(-30, 0)
 
 [node name="AdhesionRight" type="RayCast2D" parent="." unique_id=900198604]
 position = Vector2(6, 0)
-target_position = Vector2(45, 0)
+target_position = Vector2(30, 0)
 
 [node name="FSM" type="Node" parent="." unique_id=697680115]
 script = ExtResource("6_75vfm")

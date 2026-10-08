@@ -3,11 +3,11 @@ extends TextureRect
 signal game_start
 
 func victory():
-	$CenterContainer/VBoxContainer/Label.text("You win!")
+	$CenterContainer/VBoxContainer/Label.text = "You Win!"
 	show()
 	
 func death():
-	$CenterContainer/VBoxContainer/Label.text("Try again")
+	$CenterContainer/VBoxContainer/Label.text = "Try Again"
 	show()
 
 func _on_start_pressed():

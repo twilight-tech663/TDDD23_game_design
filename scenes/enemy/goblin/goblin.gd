@@ -4,7 +4,7 @@ extends CharacterBody2D
 const SPEED := 35.0
 const ATTACK_DURATION := 0.75
 const DEATH_DURATION := 0.75
-const FREEZE_DURATION := 10.0
+const FREEZE_DURATION := 5.0
 
 var direction := -1.0
 var is_dead := false
@@ -59,4 +59,5 @@ func take_damage(_amount: int = 1) -> void:
 	if is_dead:
 		return
 	is_dead = true
+	#print(is_dead)
 	$FSM.change_state(2)

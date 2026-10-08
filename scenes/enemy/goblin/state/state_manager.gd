@@ -19,6 +19,3 @@ func change_state(id:int)->void:
 	current = states_array[id]
 	current.enter()
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

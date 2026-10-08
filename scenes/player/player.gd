@@ -80,17 +80,28 @@ func take_damage(_amount: int = 1) -> void:
 	if is_dead:
 		return
 
+	var previous_surface_offset := _surface_offset(surface_normal) if is_adhere else 0.0
 	damage_count += 1
 	size_multiplier = max(size_multiplier - DAMAGE_SHRINK, MIN_SIZE_MULTIPLIER)
 	scale = Vector2.ONE * size_multiplier
+	_realign_after_scale(previous_surface_offset)
 	size_changed.emit(size_multiplier)
 	if damage_count >= MAX_DAMAGE_COUNT:
 		$FSM.change_state(DEAD_STATE)
 
 func grow_from_green_slime() -> void:
+	var previous_surface_offset := _surface_offset(surface_normal) if is_adhere else 0.0
 	size_multiplier *= GREEN_SLIME_GROWTH
 	scale = Vector2.ONE * size_multiplier
+	_realign_after_scale(previous_surface_offset)
 	size_changed.emit(size_multiplier)
+
+func _realign_after_scale(previous_surface_offset: float) -> void:
+	if !is_adhere:
+		return
+
+	var current_surface_offset := _surface_offset(surface_normal)
+	global_position += surface_normal * (current_surface_offset - previous_surface_offset)
 
 func change_slime_type(new_type: int) -> void:
 	current_slime_type = new_type
@@ -146,11 +157,10 @@ func _can_adhere_to(collider: Node) -> bool:
 	return (
 		collider != null
 		and not collider is Coblin
-		and not collider.has_method("is_fire_surface")
-		and not collider.has_method("is_ice_surface")
 		and not collider.has_method("is_green_slime")
 		and not collider.has_method("is_red_slime")
 		and not collider.has_method("is_white_slime")
+		and not collider.has_method("is_door")
 	)
 
 func attach_to_surface(
@@ -193,7 +203,8 @@ func _surface_offset(normal: Vector2) -> float:
 	if shape == null:
 		return 8.0
 	var rect := shape.get_rect()
-	return rect.size.x * 0.5 if abs(normal.x) > abs(normal.y) else rect.size.y * 0.5
+	var scaled_rect_size := rect.size * global_scale.abs()
+	return scaled_rect_size.x * 0.5 if abs(normal.x) > abs(normal.y) else scaled_rect_size.y * 0.5
 
 func detach_from_surface() -> void:
 	if !is_adhere:

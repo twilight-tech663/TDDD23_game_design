@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://b8n3221p12pbm"]
+
+[ext_resource type="Texture2D" uid="uid://bfojlcflhrhdn" path="res://asset/green_tree_background/3 Objects/Stones/5.png" id="1_6jnl5"]
+[ext_resource type="Script" uid="uid://drlc8xcr4f0b0" path="res://scenes/interactables/door/door.gd" id="2_door"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5mqa"]
+size = Vector2(20, 29.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cjnhx"]
+radius = 20.880613
+
+[node name="Door" type="StaticBody2D" unique_id=1080311743]
+script = ExtResource("2_door")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=403196431]
+texture = ExtResource("1_6jnl5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1151056073]
+position = Vector2(1, 0.5)
+shape = SubResource("RectangleShape2D_h5mqa")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1080311744]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=915296812]
+shape = SubResource("CircleShape2D_cjnhx")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
