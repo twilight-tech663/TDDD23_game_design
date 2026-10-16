@@ -96,6 +96,9 @@ func grow_from_green_slime() -> void:
 	_realign_after_scale(previous_surface_offset)
 	size_changed.emit(size_multiplier)
 
+func get_weight() -> float:
+	return size_multiplier * size_multiplier
+
 func _realign_after_scale(previous_surface_offset: float) -> void:
 	if !is_adhere:
 		return

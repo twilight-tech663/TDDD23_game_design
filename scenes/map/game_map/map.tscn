@@ -44,6 +44,7 @@
 [ext_resource type="PackedScene" uid="uid://di12g1j6h3p5v" path="res://scenes/surfaces/fire_surface.tscn" id="42_84e5u"]
 [ext_resource type="PackedScene" uid="uid://b3ermmpc4sr6e" path="res://scenes/surfaces/ice_surface.tscn" id="43_ppdt7"]
 [ext_resource type="PackedScene" uid="uid://b8n3221p12pbm" path="res://scenes/interactables/door/door.tscn" id="44_okoy5"]
+[ext_resource type="PackedScene" uid="uid://pl51qmq4mai5" path="res://scenes/interactables/movable_platform/platform.tscn" id="45_platform"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ed7xj"]
 texture = ExtResource("1_21ydc")
@@ -942,6 +943,9 @@ position = Vector2(461, 197)
 
 [node name="Coblin3" parent="." unique_id=1947950184 instance=ExtResource("41_a6rnw")]
 position = Vector2(227, 245)
+
+[node name="WeightPlatform" parent="." unique_id=88536019 instance=ExtResource("45_platform")]
+position = Vector2(176, 102)
 
 [connection signal="death" from="Player" to="." method="_on_player_death"]
 [connection signal="victory" from="Door" to="." method="_on_door_victory"]

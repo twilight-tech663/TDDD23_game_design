@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://drhnoblle60ri" path="res://scenes/slimes/white_slime/white_slime.tscn" id="7_6lbq1"]
 [ext_resource type="PackedScene" uid="uid://di12g1j6h3p5v" path="res://scenes/surfaces/fire_surface.tscn" id="8_o6ise"]
 [ext_resource type="PackedScene" uid="uid://b3ermmpc4sr6e" path="res://scenes/surfaces/ice_surface.tscn" id="9_aho80"]
+[ext_resource type="PackedScene" uid="uid://pl51qmq4mai5" path="res://scenes/interactables/movable_platform/platform.tscn" id="10_aho80"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpn6e"]
 size = Vector2(474, 28.5)
@@ -39,7 +40,7 @@ position = Vector2(41, 150)
 shape = SubResource("RectangleShape2D_y5gml")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=671765864]
-position = Vector2(161, 149)
+position = Vector2(240, 72)
 shape = SubResource("RectangleShape2D_mrm8t")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=1799669478]
@@ -51,7 +52,7 @@ position = Vector2(374, 212)
 shape = SubResource("RectangleShape2D_f4bya")
 
 [node name="Player" parent="." unique_id=192483330 instance=ExtResource("1_fx5uc")]
-position = Vector2(156, 54)
+position = Vector2(234, 57)
 floor_snap_length = 4.0
 
 [node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1258727530]
@@ -65,7 +66,7 @@ scale = Vector2(1.0390627, 8.921875)
 texture = ExtResource("3_y5gml")
 
 [node name="CeilingSprite" type="Sprite2D" parent="." unique_id=1100449039]
-position = Vector2(160.99994, 149)
+position = Vector2(242, 73.99997)
 scale = Vector2(6.695313, -0.50585985)
 texture = ExtResource("2_bpn6e")
 
@@ -75,7 +76,7 @@ scale = Vector2(13.430662, -0.6499021)
 texture = ExtResource("2_bpn6e")
 
 [node name="GreenSlime" parent="." unique_id=811185381 instance=ExtResource("4_y5gml")]
-position = Vector2(67, 65)
+position = Vector2(146, 57)
 
 [node name="Coblin" parent="." unique_id=162470542 instance=ExtResource("5_mrm8t")]
 position = Vector2(379, 188)
@@ -84,10 +85,16 @@ position = Vector2(379, 188)
 position = Vector2(142, 130)
 
 [node name="WhiteSlime" parent="." unique_id=263978910 instance=ExtResource("7_6lbq1")]
-position = Vector2(223, 132)
+position = Vector2(94, 134)
 
 [node name="FireSurface" parent="." unique_id=975436669 instance=ExtResource("8_o6ise")]
 position = Vector2(110, 146)
 
 [node name="IceSurface" parent="." unique_id=1499499191 instance=ExtResource("9_aho80")]
 position = Vector2(254, 147)
+
+[node name="Platform" parent="." unique_id=882625024 instance=ExtResource("10_aho80")]
+position = Vector2(365, 71)
+
+[node name="Platform2" parent="." unique_id=593542182 instance=ExtResource("10_aho80")]
+position = Vector2(482, 207)
