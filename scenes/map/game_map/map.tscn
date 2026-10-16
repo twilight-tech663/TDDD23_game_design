@@ -945,7 +945,7 @@ position = Vector2(461, 197)
 position = Vector2(227, 245)
 
 [node name="WeightPlatform" parent="." unique_id=88536019 instance=ExtResource("45_platform")]
-position = Vector2(176, 102)
+position = Vector2(319, 75)
 
 [connection signal="death" from="Player" to="." method="_on_player_death"]
 [connection signal="victory" from="Door" to="." method="_on_door_victory"]
