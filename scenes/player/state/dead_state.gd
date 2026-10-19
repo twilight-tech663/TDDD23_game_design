@@ -8,6 +8,5 @@ func enter() -> void:
 	player.velocity = Vector2.ZERO
 	animated_sprite.play("dead")
 	await animated_sprite.animation_finished
-	await get_tree().create_timer(3.0).timeout
 	if is_instance_valid(player):
 		player.emit_signal("death")

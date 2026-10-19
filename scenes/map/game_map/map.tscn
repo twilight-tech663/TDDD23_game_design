@@ -45,6 +45,8 @@
 [ext_resource type="PackedScene" uid="uid://b3ermmpc4sr6e" path="res://scenes/surfaces/ice_surface.tscn" id="43_ppdt7"]
 [ext_resource type="PackedScene" uid="uid://b8n3221p12pbm" path="res://scenes/interactables/door/door.tscn" id="44_okoy5"]
 [ext_resource type="PackedScene" uid="uid://pl51qmq4mai5" path="res://scenes/interactables/movable_platform/platform.tscn" id="45_platform"]
+[ext_resource type="Texture2D" uid="uid://k6a856lyeu17" path="res://asset/jungle-game-ui/PNG/you_lose/header.png" id="46_youlose"]
+[ext_resource type="Texture2D" uid="uid://cpypsbe2f1v46" path="res://asset/jungle-game-ui/PNG/you_win/header.png" id="47_youwin"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ed7xj"]
 texture = ExtResource("1_21ydc")
@@ -946,6 +948,44 @@ position = Vector2(227, 245)
 
 [node name="WeightPlatform" parent="." unique_id=88536019 instance=ExtResource("45_platform")]
 position = Vector2(319, 75)
+
+[node name="YouLoseLayer" type="CanvasLayer" parent="." unique_id=1000000001]
+visible = false
+
+[node name="YouLoseImage" type="TextureRect" parent="YouLoseLayer" unique_id=1000000002]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -79.0
+offset_right = 200.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("46_youlose")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="YouWinLayer" type="CanvasLayer" parent="." unique_id=784651699]
+visible = false
+
+[node name="YouWinImage" type="TextureRect" parent="YouWinLayer" unique_id=730864398]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -79.0
+offset_right = 200.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("47_youwin")
+expand_mode = 1
+stretch_mode = 5
 
 [connection signal="death" from="Player" to="." method="_on_player_death"]
 [connection signal="victory" from="Door" to="." method="_on_door_victory"]

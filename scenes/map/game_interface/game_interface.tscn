@@ -4,8 +4,14 @@
 [ext_resource type="Script" uid="uid://huals03icxmr" path="res://scenes/map/game_interface/game_interface.gd" id="2_cs1ld"]
 [ext_resource type="Texture2D" uid="uid://bgmw7k05cp5pv" path="res://asset/green_tree_background/2 Background/Layers/1.png" id="2_pe2v2"]
 [ext_resource type="Texture2D" uid="uid://pa1l2fmajttx" path="res://asset/green_tree_background/2 Background/Layers/3.png" id="3_cs1ld"]
+[ext_resource type="Texture2D" uid="uid://cwft0ylod33u6" path="res://asset/jungle-game-ui/PNG/menu/play.png" id="4_play"]
+[ext_resource type="Texture2D" uid="uid://1vvxkbv76123" path="res://asset/jungle-game-ui/PNG/settings/close_2.png" id="5_close"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cjnhx"]
+font_size = 56
+font_color = Color(0.56, 0.93, 0.36, 1)
+outline_size = 10
+outline_color = Color(0.05, 0.3, 0.05, 1)
 
 [node name="Game_Interface" type="TextureRect" unique_id=1583754813]
 anchors_preset = 15
@@ -32,27 +38,32 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=704504543]
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
 text = "SlimeBound"
 label_settings = SubResource("LabelSettings_cjnhx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="start" type="Button" parent="CenterContainer/VBoxContainer" unique_id=318195845]
+[node name="Buttons" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=2001000001]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.15294118, 0.69411767, 0.9490196, 1)
-text = "Start"
-expand_icon = true
+size_flags_horizontal = 4
+theme_override_constants/separation = 24
+alignment = 1
 
-[node name="exit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1706124155]
+[node name="start" type="TextureButton" parent="CenterContainer/VBoxContainer/Buttons" unique_id=318195845]
+custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.15312374, 0.695907, 0.9499323, 1)
-text = "Exit"
+texture_normal = ExtResource("4_play")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer" unique_id=520285555]
+[node name="exit" type="TextureButton" parent="CenterContainer/VBoxContainer/Buttons" unique_id=1706124155]
+custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
-text = "Drop: Space
-Move: <- -> / A D"
+texture_normal = ExtResource("5_close")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1693962757]
 z_index = -1
@@ -66,5 +77,5 @@ position = Vector2(319.99997, 179.49998)
 scale = Vector2(1.1076388, 1.1203704)
 texture = ExtResource("3_cs1ld")
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/exit" to="." method="on_exit_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/exit" to="." method="on_exit_pressed"]

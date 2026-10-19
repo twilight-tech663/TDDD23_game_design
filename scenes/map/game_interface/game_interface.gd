@@ -7,7 +7,7 @@ func victory():
 	show()
 	
 func death():
-	$CenterContainer/VBoxContainer/Label.text = "Try Again"
+	$CenterContainer/VBoxContainer/Label.text = "Try Again!"
 	show()
 
 func _on_start_pressed():
