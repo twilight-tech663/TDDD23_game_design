@@ -59,6 +59,12 @@ func find_attack_target() -> Node2D:
 		attack_blocked_target = null
 	return null
 
+func find_white_slime_contact() -> bool:
+	for body in $Area2D.get_overlapping_bodies():
+		if body is Player and body.current_slime_type == Player.slime_type.WHITE:
+			return true
+	return false
+
 func reverse_direction() -> void:
 	direction *= -1.0
 

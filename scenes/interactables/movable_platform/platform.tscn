@@ -4,25 +4,26 @@
 [ext_resource type="Texture2D" uid="uid://c8erjxr4i4hj0" path="res://asset/green_tree_background/1 Tiles/Tile_40.png" id="2_8a08e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
-size = Vector2(32, 12)
+size = Vector2(50, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_detector"]
-size = Vector2(32, 15)
+size = Vector2(59, 15)
 
 [node name="Platform" type="CharacterBody2D" unique_id=882625024]
 script = ExtResource("1_platform")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=388351880]
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_platform")
 
 [node name="RiderDetector" type="Area2D" parent="." unique_id=809543077]
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RiderDetector" unique_id=589913504]
-position = Vector2(0, -7.5)
+position = Vector2(0.5, -7.5)
 shape = SubResource("RectangleShape2D_detector")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1134483473]
-position = Vector2(-0.24999976, 0)
-scale = Vector2(1.015625, 0.37499997)
+position = Vector2(-0.12499905, 1.0000002)
+scale = Vector2(1.5703125, 0.5)
 texture = ExtResource("2_8a08e")

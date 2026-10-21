@@ -17,6 +17,10 @@ func enter() -> void:
 	animated_sprite.play("attack")
 
 func do(delta: float) -> void:
+	if !has_attacked and coblin.find_white_slime_contact():
+		coblin.freeze()
+		return
+
 	coblin.velocity = Vector2.ZERO
 	_face_attack_target()
 	if has_attacked:

@@ -7,6 +7,10 @@ func enter() -> void:
 	animated_sprite.play("walk")
 
 func do(_delta: float) -> void:
+	if coblin.find_white_slime_contact():
+		coblin.freeze()
+		return
+
 	var target := coblin.find_attack_target()
 	if target != null:
 		get_parent().change_state(1)
