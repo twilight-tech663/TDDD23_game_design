@@ -51,6 +51,7 @@ func _ready() -> void:
 		raycast.add_exception(self)
 		
 	$EatArea2D.body_entered.connect(_on_eat_area_body_entered)
+	health_hud.set_slime_type(current_slime_type)
 	health_hud.set_hearts(hearts)
 
 func _on_eat_area_body_entered(body: Node2D) -> void:
@@ -113,6 +114,7 @@ func _realign_after_scale(previous_surface_offset: float) -> void:
 
 func change_slime_type(new_type: int) -> void:
 	current_slime_type = new_type
+	health_hud.set_slime_type(new_type)
 	match new_type:
 		slime_type.RED:
 			$AnimatedSprite2D.sprite_frames = red_frames

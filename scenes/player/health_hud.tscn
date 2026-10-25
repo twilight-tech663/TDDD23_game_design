@@ -2,13 +2,24 @@
 
 [ext_resource type="Script" uid="uid://c7gaxcxae3ex7" path="res://scenes/player/health_hud.gd" id="1_hud"]
 [ext_resource type="Texture2D" uid="uid://co2o3n8swgw0q" path="res://asset/craftpix-net-788364-free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime1/Parts/Slime1_Idle_body.png" id="2_slime"]
+[ext_resource type="Texture2D" uid="uid://c0td7wpuw8obp" path="res://asset/craftpix-net-788364-free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime3/Parts/Slime3_Idle_body.png" id="3_red"]
+[ext_resource type="Texture2D" uid="uid://cp0jw66yxlf31" path="res://asset/craftpix-net-788364-free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime2/Parts/Slime2_Idle_body.png" id="4_white"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_heart"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_green"]
 atlas = ExtResource("2_slime")
 region = Rect2(20, 83, 22, 21)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_red"]
+atlas = ExtResource("3_red")
+region = Rect2(20, 80, 22, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_white"]
+atlas = ExtResource("4_white")
+region = Rect2(21, 80, 21, 24)
+
 [node name="HealthHUD" type="CanvasLayer" unique_id=1666626158]
 script = ExtResource("1_hud")
+slime_hearts = Array[Texture2D]([SubResource("AtlasTexture_green"), SubResource("AtlasTexture_red"), SubResource("AtlasTexture_white")])
 
 [node name="Hearts" type="HBoxContainer" parent="." unique_id=1333696267]
 offset_left = -5.0
@@ -20,7 +31,7 @@ offset_bottom = 40.0
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = SubResource("AtlasTexture_heart")
+texture = SubResource("AtlasTexture_green")
 expand_mode = 1
 stretch_mode = 5
 
@@ -28,7 +39,7 @@ stretch_mode = 5
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = SubResource("AtlasTexture_heart")
+texture = SubResource("AtlasTexture_green")
 expand_mode = 1
 stretch_mode = 5
 
@@ -36,6 +47,6 @@ stretch_mode = 5
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = SubResource("AtlasTexture_heart")
+texture = SubResource("AtlasTexture_green")
 expand_mode = 1
 stretch_mode = 5
