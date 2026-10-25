@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://c6o1mxkba5wc2"]
+
+[ext_resource type="Script" uid="uid://c7gaxcxae3ex7" path="res://scenes/player/health_hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" uid="uid://co2o3n8swgw0q" path="res://asset/craftpix-net-788364-free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime1/Parts/Slime1_Idle_body.png" id="2_slime"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_heart"]
+atlas = ExtResource("2_slime")
+region = Rect2(20, 83, 22, 21)
+
+[node name="HealthHUD" type="CanvasLayer" unique_id=1666626158]
+script = ExtResource("1_hud")
+
+[node name="Hearts" type="HBoxContainer" parent="." unique_id=1333696267]
+offset_left = -5.0
+offset_top = -14.0
+offset_right = 110.0
+offset_bottom = 40.0
+
+[node name="Heart1" type="TextureRect" parent="Hearts" unique_id=1653420452]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_heart")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Heart2" type="TextureRect" parent="Hearts" unique_id=296617770]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_heart")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Heart3" type="TextureRect" parent="Hearts" unique_id=186284612]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_heart")
+expand_mode = 1
+stretch_mode = 5

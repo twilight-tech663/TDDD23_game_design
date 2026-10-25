@@ -7,7 +7,8 @@ const DETACH_LOCK_TIME := 0.5
 const GREEN_SLIME_GROWTH := 1.2
 const DAMAGE_SHRINK := 0.2
 const MIN_SIZE_MULTIPLIER := 0.2
-const MAX_DAMAGE_COUNT := 2
+const START_HEARTS := 2
+const MAX_HEARTS := 3
 const DEAD_STATE := 3
 const RED_SLIME_SCENE := preload("res://scenes/slimes/red_slime/red_slime.tscn")
 const WHITE_SLIME_SCENE := preload("res://scenes/slimes/white_slime/white_slime.tscn")
@@ -20,7 +21,8 @@ var surface_normal := Vector2.UP
 var current_surface_collider: Node = null
 var adhesion_lock_time := 0.0
 var size_multiplier := 1.0
-var damage_count := 0
+var hearts := START_HEARTS
+@onready var health_hud: HealthHUD = $HealthHUD
 var is_dead := false
 var current_slime_type := slime_type.GREEN
 var green_frames: SpriteFrames
@@ -49,6 +51,7 @@ func _ready() -> void:
 		raycast.add_exception(self)
 		
 	$EatArea2D.body_entered.connect(_on_eat_area_body_entered)
+	health_hud.set_hearts(hearts)
 
 func _on_eat_area_body_entered(body: Node2D) -> void:
 	if body.has_method("is_green_slime") and body.is_green_slime():
@@ -81,23 +84,25 @@ func take_damage(_amount: int = 1) -> void:
 		return
 
 	var previous_surface_offset := _surface_offset(surface_normal) if is_adhere else 0.0
-	damage_count += 1
+	hearts = max(hearts - 1, 0)
 	size_multiplier = max(size_multiplier - DAMAGE_SHRINK, MIN_SIZE_MULTIPLIER)
 	scale = Vector2.ONE * size_multiplier
 	_realign_after_scale(previous_surface_offset)
+	health_hud.set_hearts(hearts)
 	size_changed.emit(size_multiplier)
-	if damage_count >= MAX_DAMAGE_COUNT:
+	if hearts <= 0:
 		$FSM.change_state(DEAD_STATE)
 
 func grow_from_green_slime() -> void:
+	if hearts >= MAX_HEARTS:
+		return
 	var previous_surface_offset := _surface_offset(surface_normal) if is_adhere else 0.0
+	hearts += 1
 	size_multiplier *= GREEN_SLIME_GROWTH
 	scale = Vector2.ONE * size_multiplier
 	_realign_after_scale(previous_surface_offset)
+	health_hud.set_hearts(hearts)
 	size_changed.emit(size_multiplier)
-
-func get_weight() -> float:
-	return size_multiplier * size_multiplier
 
 func _realign_after_scale(previous_surface_offset: float) -> void:
 	if !is_adhere:
