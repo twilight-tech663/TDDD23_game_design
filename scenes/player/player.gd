@@ -1,8 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
-const SPEED := 100.0
-const SURFACE_SPEED := 100.0
+const SPEED := 80.0
+const SURFACE_SPEED := 80.0
 const DETACH_LOCK_TIME := 0.5
 const GREEN_SLIME_GROWTH := 1.2
 const DAMAGE_SHRINK := 0.2
@@ -152,7 +152,7 @@ func find_adhesion_surface() -> bool:
 			continue
 		for collision_index in get_slide_collision_count():
 			var collision := get_slide_collision(collision_index)
-			var collision_normal := collision.get_normal().normalized()
+			var collision_normal := _snap_to_axis(collision.get_normal())
 			var collider := collision.get_collider() as Node
 			if !_can_adhere_to(collider):
 				continue
@@ -162,6 +162,11 @@ func find_adhesion_surface() -> bool:
 			return true
 	return false
 
+
+func _snap_to_axis(normal: Vector2) -> Vector2:
+	if abs(normal.x) > abs(normal.y):
+		return Vector2(signf(normal.x), 0.0)
+	return Vector2(0.0, signf(normal.y))
 
 func _can_adhere_to(collider: Node) -> bool:
 	return (

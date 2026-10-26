@@ -39,7 +39,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Timer" type="Timer" parent="." unique_id=1262271753]
-wait_time = 4.0
+wait_time = 2.0
 one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

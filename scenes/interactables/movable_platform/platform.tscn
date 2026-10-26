@@ -7,7 +7,7 @@
 size = Vector2(50, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_detector"]
-size = Vector2(40, 14)
+size = Vector2(26, 16)
 
 [node name="Platform" type="CharacterBody2D" unique_id=882625024]
 script = ExtResource("1_platform")
@@ -20,7 +20,7 @@ shape = SubResource("RectangleShape2D_platform")
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RiderDetector" unique_id=589913504]
-position = Vector2(-1, -7)
+position = Vector2(-1, -8)
 shape = SubResource("RectangleShape2D_detector")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1134483473]
