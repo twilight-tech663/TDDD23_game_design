@@ -4,7 +4,7 @@ extends CharacterBody2D
 const SPEED := 35.0
 const ATTACK_DURATION := 0.75
 const DEATH_DURATION := 0.75
-const FREEZE_DURATION := 5.0
+const FREEZE_DURATION := 3.0
 
 var direction := -1.0
 var is_dead := false

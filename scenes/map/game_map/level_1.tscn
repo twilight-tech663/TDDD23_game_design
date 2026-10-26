@@ -921,7 +921,7 @@ scale = Vector2(1.1112195, 1.1149691)
 texture = ExtResource("35_38ysu")
 
 [node name="Player" parent="." unique_id=1490423673 instance=ExtResource("37_juwpf")]
-position = Vector2(330, 88)
+position = Vector2(335, 76)
 
 [node name="Door" parent="." unique_id=1271399184 instance=ExtResource("44_okoy5")]
 position = Vector2(31, 322)
@@ -1008,7 +1008,7 @@ hint_path = NodePath("../TutorialHint4")
 shape = SubResource("RectangleShape2D_hint4")
 
 [node name="TutorialHint5" parent="." unique_id=1000000025 instance=ExtResource("51_hint")]
-text = "3 hearts: platform sinks, 1 heart: platform rises"
+text = "3 hearts for sinks, 1 for rises"
 
 [node name="HintTrigger5" type="Area2D" parent="." unique_id=1000000035]
 position = Vector2(311, 235)

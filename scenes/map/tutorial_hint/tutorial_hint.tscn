@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://jm8i0swivktf" path="res://scenes/map/tutorial_hint/tutorial_hint.gd" id="1_script"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hint"]
-font_size = 12
+font_size = 18
 outline_size = 3
 outline_color = Color(0.2, 0.1, 0.05, 1)
 
