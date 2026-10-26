@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cwasscslfc5qb"]
+
+[ext_resource type="Script" uid="uid://jm8i0swivktf" path="res://scenes/map/tutorial_hint/tutorial_hint.gd" id="1_script"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hint"]
+font_size = 12
+outline_size = 3
+outline_color = Color(0.2, 0.1, 0.05, 1)
+
+[node name="TutorialHint" type="CanvasLayer" unique_id=1879987369]
+visible = false
+script = ExtResource("1_script")
+
+[node name="Panel" type="Control" parent="." unique_id=704554073]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 40.0
+offset_right = 200.0
+offset_bottom = 90.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Panel" unique_id=270529777]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 4.0
+offset_right = -12.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_hint")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Timer" type="Timer" parent="." unique_id=1262271753]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
