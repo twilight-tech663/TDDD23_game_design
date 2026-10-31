@@ -94,6 +94,14 @@ func _on_eat_area_body_entered(body: Node2D) -> void:
 			body.freeze()
 		return
 
+func _surface_offset(normal: Vector2) -> float:
+	var shape := $CollisionShape2D.shape as Shape2D
+	if shape == null:
+		return 8.0
+	var rect := shape.get_rect()
+	var scaled_rect_size := rect.size * global_scale.abs()
+	return scaled_rect_size.x * 0.5 if abs(normal.x) > abs(normal.y) else scaled_rect_size.y * 0.5
+
 func _realign_after_scale(previous_surface_offset: float) -> void:
 	if !is_adhere:
 		return
@@ -184,14 +192,6 @@ func _can_pass_surface(collider: Node) -> bool:
 	if collider.has_method("is_ice_surface"):
 		return current_slime_type == slime_type.WHITE
 	return true
-
-func _surface_offset(normal: Vector2) -> float:
-	var shape := $CollisionShape2D.shape as Shape2D
-	if shape == null:
-		return 8.0
-	var rect := shape.get_rect()
-	var scaled_rect_size := rect.size * global_scale.abs()
-	return scaled_rect_size.x * 0.5 if abs(normal.x) > abs(normal.y) else scaled_rect_size.y * 0.5
 
 func attach_to_surface(
 	normal: Vector2,
