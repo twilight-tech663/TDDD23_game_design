@@ -54,6 +54,20 @@ func _ready() -> void:
 	health_hud.set_slime_type(current_slime_type)
 	health_hud.set_hearts(hearts)
 
+func change_slime_type(new_type: int) -> void:
+	current_slime_type = new_type
+	health_hud.set_slime_type(new_type)
+	match new_type:
+		slime_type.RED:
+			$AnimatedSprite2D.sprite_frames = red_frames
+		slime_type.WHITE:
+			$AnimatedSprite2D.sprite_frames = white_frames
+		_:
+			$AnimatedSprite2D.sprite_frames = green_frames
+	$AnimatedSprite2D.play()
+	if current_surface_collider != null and !_can_pass_surface(current_surface_collider):
+		$FSM.change_state(DEAD_STATE)
+
 func _on_eat_area_body_entered(body: Node2D) -> void:
 	if body.has_method("is_green_slime") and body.is_green_slime():
 		if current_slime_type != slime_type.GREEN:
@@ -68,6 +82,11 @@ func _on_eat_area_body_entered(body: Node2D) -> void:
 		body.consume()
 		return
 
+	if body.has_method("is_white_slime") and body.is_white_slime():
+		change_slime_type(slime_type.WHITE)
+		body.consume()
+		return
+
 	if body is Coblin:
 		if current_slime_type == slime_type.RED:
 			body.take_damage(1)
@@ -75,10 +94,23 @@ func _on_eat_area_body_entered(body: Node2D) -> void:
 			body.freeze()
 		return
 
-	if body.has_method("is_white_slime") and body.is_white_slime():
-		change_slime_type(slime_type.WHITE)
-		body.consume()
+func _realign_after_scale(previous_surface_offset: float) -> void:
+	if !is_adhere:
 		return
+
+	var current_surface_offset := _surface_offset(surface_normal)
+	global_position += surface_normal * (current_surface_offset - previous_surface_offset)
+
+func grow_from_green_slime() -> void:
+	if hearts >= MAX_HEARTS:
+		return
+	var previous_surface_offset := _surface_offset(surface_normal) if is_adhere else 0.0
+	hearts += 1
+	size_multiplier *= GREEN_SLIME_GROWTH
+	scale = Vector2.ONE * size_multiplier
+	_realign_after_scale(previous_surface_offset)
+	health_hud.set_hearts(hearts)
+	size_changed.emit(size_multiplier)
 
 func take_damage(_amount: int = 1) -> void:
 	if is_dead:
@@ -94,37 +126,6 @@ func take_damage(_amount: int = 1) -> void:
 	if hearts <= 0:
 		$FSM.change_state(DEAD_STATE)
 
-func grow_from_green_slime() -> void:
-	if hearts >= MAX_HEARTS:
-		return
-	var previous_surface_offset := _surface_offset(surface_normal) if is_adhere else 0.0
-	hearts += 1
-	size_multiplier *= GREEN_SLIME_GROWTH
-	scale = Vector2.ONE * size_multiplier
-	_realign_after_scale(previous_surface_offset)
-	health_hud.set_hearts(hearts)
-	size_changed.emit(size_multiplier)
-
-func _realign_after_scale(previous_surface_offset: float) -> void:
-	if !is_adhere:
-		return
-
-	var current_surface_offset := _surface_offset(surface_normal)
-	global_position += surface_normal * (current_surface_offset - previous_surface_offset)
-
-func change_slime_type(new_type: int) -> void:
-	current_slime_type = new_type
-	health_hud.set_slime_type(new_type)
-	match new_type:
-		slime_type.RED:
-			$AnimatedSprite2D.sprite_frames = red_frames
-		slime_type.WHITE:
-			$AnimatedSprite2D.sprite_frames = white_frames
-		_:
-			$AnimatedSprite2D.sprite_frames = green_frames
-	$AnimatedSprite2D.play()
-	if current_surface_collider != null and !_can_pass_surface(current_surface_collider):
-		$FSM.change_state(DEAD_STATE)
 
 func _physics_process(delta: float) -> void:
 	update_adhesion_lock(delta)

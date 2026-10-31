@@ -25,26 +25,6 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.play()
 		$FSM.set_physics_process(true)
 
-func freeze(duration: float = FREEZE_DURATION) -> void:
-	if is_dead:
-		return
-
-	for body in $Area2D.get_overlapping_bodies():
-		if body != self and body.has_method("take_damage"):
-			attack_blocked_target = body as Node2D
-	$FSM.change_state(0)
-
-	is_frozen = true
-	freeze_time_left = max(freeze_time_left, duration)
-	velocity = Vector2.ZERO
-	$FSM.set_physics_process(false)
-	$AnimatedSprite2D.pause()
-
-func has_floor_ahead() -> bool:
-	var raycast: RayCast2D = $RightRayCast if direction > 0.0 else $LeftRayCast
-	raycast.force_raycast_update()
-	return raycast.is_colliding()
-
 func find_attack_target() -> Node2D:
 	var blocked_target_is_inside := false
 	for body in $Area2D.get_overlapping_bodies():
@@ -64,6 +44,26 @@ func find_white_slime_contact() -> bool:
 		if body is Player and body.current_slime_type == Player.slime_type.WHITE:
 			return true
 	return false
+
+func freeze(duration: float = FREEZE_DURATION) -> void:
+	if is_dead:
+		return
+
+	for body in $Area2D.get_overlapping_bodies():
+		if body != self and body.has_method("take_damage"):
+			attack_blocked_target = body as Node2D
+	$FSM.change_state(0)
+
+	is_frozen = true
+	freeze_time_left = max(freeze_time_left, duration)
+	velocity = Vector2.ZERO
+	$FSM.set_physics_process(false)
+	$AnimatedSprite2D.pause()
+
+func has_floor_ahead() -> bool:
+	var raycast: RayCast2D = $RightRayCast if direction > 0.0 else $LeftRayCast
+	raycast.force_raycast_update()
+	return raycast.is_colliding()
 
 func reverse_direction() -> void:
 	direction *= -1.0
