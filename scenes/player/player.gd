@@ -129,8 +129,6 @@ func change_slime_type(new_type: int) -> void:
 func _physics_process(delta: float) -> void:
 	update_adhesion_lock(delta)
 
-	#if is_adhere and !_can_adhere_to(current_surface_collider):
-		#detach_from_surface()
 	if !is_adhere:
 		find_adhesion_surface() 
 
@@ -162,7 +160,6 @@ func find_adhesion_surface() -> bool:
 			return true
 	return false
 
-
 func _snap_to_axis(normal: Vector2) -> Vector2:
 	if abs(normal.x) > abs(normal.y):
 		return Vector2(signf(normal.x), 0.0)
@@ -177,6 +174,23 @@ func _can_adhere_to(collider: Node) -> bool:
 		and not collider.has_method("is_white_slime")
 		and not collider.has_method("is_door")
 	)
+
+func _can_pass_surface(collider: Node) -> bool:
+	if collider == null:
+		return true
+	if collider.has_method("is_fire_surface"):
+		return current_slime_type == slime_type.RED
+	if collider.has_method("is_ice_surface"):
+		return current_slime_type == slime_type.WHITE
+	return true
+
+func _surface_offset(normal: Vector2) -> float:
+	var shape := $CollisionShape2D.shape as Shape2D
+	if shape == null:
+		return 8.0
+	var rect := shape.get_rect()
+	var scaled_rect_size := rect.size * global_scale.abs()
+	return scaled_rect_size.x * 0.5 if abs(normal.x) > abs(normal.y) else scaled_rect_size.y * 0.5
 
 func attach_to_surface(
 	normal: Vector2,
@@ -204,22 +218,6 @@ func attach_to_surface(
 			global_position = contact_position + surface_normal * _surface_offset(surface_normal)
 	$AnimatedSprite2D.rotation = surface_normal.angle() + PI / 2.0
 
-func _can_pass_surface(collider: Node) -> bool:
-	if collider == null:
-		return true
-	if collider.has_method("is_fire_surface"):
-		return current_slime_type == slime_type.RED
-	if collider.has_method("is_ice_surface"):
-		return current_slime_type == slime_type.WHITE
-	return true
-
-func _surface_offset(normal: Vector2) -> float:
-	var shape := $CollisionShape2D.shape as Shape2D
-	if shape == null:
-		return 8.0
-	var rect := shape.get_rect()
-	var scaled_rect_size := rect.size * global_scale.abs()
-	return scaled_rect_size.x * 0.5 if abs(normal.x) > abs(normal.y) else scaled_rect_size.y * 0.5
 
 func detach_from_surface() -> void:
 	if !is_adhere:
