@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 	position = position.move_toward(target_position, movement_speed * delta)
 
 	if rider != null:
-		rider.global_position += position - previous_positi
+		rider.global_position += position - previous_position
 
 func _find_rider() -> Player:
 	for body in $RiderDetector.get_overlapping_bodies():
